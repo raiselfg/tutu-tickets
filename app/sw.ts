@@ -15,7 +15,8 @@ const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
   precacheOptions: {
     // Next.js adds a version parameter to the favicon URL.
-    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^favicon\./],
+    // A ticket's HTML shell is shared; its number is resolved from IndexedDB.
+    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^favicon\./, /^number$/],
   },
   skipWaiting: true,
   clientsClaim: true,

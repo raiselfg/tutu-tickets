@@ -1,17 +1,25 @@
 export type Ticket = {
-  route: string;
-  date: string;
   number: string;
+  departure: string;
+  arrival: string;
+  travelDate: string;
+  createdAt: number;
+  expiresAt: number;
 };
 
-export const activeTicket: Ticket = {
-  route: "Ручеёк (36 км) — Санкт-Петербург-Витеб.",
-  date: "5 ноября",
-  number: "411000014",
-};
+export function getTicketRoute(ticket: Ticket) {
+  return `${ticket.departure} — ${ticket.arrival}`;
+}
 
-export const pastTickets: Ticket[] = [
-  { route: "Проспект Славы — Павловск", date: "4 ноября", number: "410959916" },
-  { route: "Новолисино — Царское Село", date: "4 ноября", number: "410930700" },
-  { route: "Санкт-Петербург-Витеб. — Новолисино", date: "3 ноября", number: "410741391" },
-];
+export function getTicketDate(ticket: Ticket) {
+  const [year, month, day] = ticket.travelDate.split("-").map(Number);
+  return new Intl.DateTimeFormat("ru-RU", { day: "numeric", month: "long" }).format(new Date(year, month - 1, day));
+}
+
+export function getTicketDates(now: Date) {
+  return {
+    travelDate: `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`,
+    createdAt: now.getTime(),
+    expiresAt: new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 1).getTime(),
+  };
+}

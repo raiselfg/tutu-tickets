@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Promotion } from "../components/promotion";
 
 export default function Other() {
@@ -14,12 +15,16 @@ export default function Other() {
       </section>
 
       <div className="other-menu">
-        {["Кошелёк", "Видимость элементов", "Уведомления", "Помощь"].map((label) => (
+        {["Кошелёк", "Видимость элементов", "Уведомления"].map((label) => (
           <div className="other-menu-row" key={label}>
             <span>{label}</span>
             <svg viewBox="0 0 12 22" aria-hidden="true"><path d="m2 2 9 9-9 9" /></svg>
           </div>
         ))}
+        <Link href="/create-ticket" className="other-menu-row">
+          <span>Помощь</span>
+          <svg viewBox="0 0 12 22" aria-hidden="true"><path d="m2 2 9 9-9 9" /></svg>
+        </Link>
         <div className="other-contact">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="12" fill="#45476b" />

@@ -18,5 +18,5 @@ export const { dynamic, dynamicParams, revalidate, generateStaticParams, GET } =
     ".next/static/media/**/*.{ttf,woff,woff2}",
     "public/**/*",
   ],
-  additionalPrecacheEntries: ["/", "/ticket", "/schedule", "/station", "/other", "/manifest.webmanifest", "/favicon.ico"].map((url) => ({ url, revision })),
+  additionalPrecacheEntries: ["/", "/ticket", "/create-ticket", "/schedule", "/station", "/other", "/manifest.webmanifest", "/favicon.ico"].map((url) => ({ url, revision })),
 });

@@ -1,9 +1,21 @@
+"use client";
+
 import Link from "next/link";
-import { activeTicket, pastTickets } from "../lib/tickets";
+import { getTicketRoute } from "../lib/tickets";
+import { useTickets, useTicketTime } from "../lib/use-tickets";
 import { Promotion } from "./promotion";
 import { TicketCard } from "./ticket-card";
 
 export function TicketList() {
+  const result = useTickets();
+  const tickets = result?.tickets ?? [];
+  const nextExpiry = tickets.reduce<number | undefined>((next, ticket) => (
+    ticket.expiresAt > Date.now() && (next === undefined || ticket.expiresAt < next) ? ticket.expiresAt : next
+  ), undefined);
+  const now = useTicketTime(nextExpiry);
+  const activeTickets = tickets.filter((ticket) => ticket.expiresAt > now);
+  const pastTickets = tickets.filter((ticket) => ticket.expiresAt <= now);
+
   return (
     <div className="ticket-list">
       <Promotion spacedPrice />
@@ -19,9 +31,14 @@ export function TicketList() {
 
       <section className="tickets-section" aria-labelledby="active-heading">
         <h2 id="active-heading">Активированные</h2>
-        <Link href="/ticket" scroll={false} className="ticket-open" aria-label={`Открыть билет ${activeTicket.route}`}>
-          <TicketCard ticket={activeTicket} active />
-        </Link>
+        {!result && <p className="ticket-list-state" role="status">Загрузка билетов…</p>}
+        {result?.error && <p className="ticket-list-state" role="alert">{result.error}</p>}
+        {result && !result.error && activeTickets.length === 0 && <p className="ticket-list-state">Нет активированных билетов</p>}
+        {activeTickets.map((ticket) => (
+          <Link key={ticket.number} href={`/ticket?number=${ticket.number}`} scroll={false} className="ticket-open" aria-label={`Открыть билет ${getTicketRoute(ticket)}`}>
+            <TicketCard ticket={ticket} active />
+          </Link>
+        ))}
       </section>
 
       <section className="support" aria-labelledby="support-heading">
@@ -32,6 +49,7 @@ export function TicketList() {
 
       <section className="tickets-section past-tickets" aria-labelledby="past-heading">
         <h2 id="past-heading">Прошедшие</h2>
+        {result && !result.error && pastTickets.length === 0 && <p className="ticket-list-state">Нет прошедших билетов</p>}
         {pastTickets.map((ticket) => <TicketCard key={ticket.number} ticket={ticket} />)}
       </section>
     </div>

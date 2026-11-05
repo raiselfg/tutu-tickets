@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import type { Ticket } from "../lib/tickets";
+import { getTicketDate, getTicketRoute, type Ticket } from "../lib/tickets";
 
 export function TicketSummary({ ticket }: { ticket: Ticket }) {
   return (
     <>
-      <h3 className="ticket-route">{ticket.route}</h3>
-      <p className="ticket-description">Разовый билет в одну сторону на {ticket.date}</p>
+      <h3 className="ticket-route">{getTicketRoute(ticket)}</h3>
+      <p className="ticket-description">Разовый билет в одну сторону на {getTicketDate(ticket)}</p>
       <div className="train-category">
         <img src="/images/standard-train.png" width="20" height="20" alt="" />
         <p>Билет подходит для поездов категории стандарт (обычный пригородный поезд)</p>

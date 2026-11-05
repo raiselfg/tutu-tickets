@@ -32,6 +32,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const scrollPositions = useRef<Record<string, number>>({});
   const contentRef = useRef<HTMLDivElement>(null);
   const isTicket = pathname === "/ticket";
+  const isCreateTicket = pathname === "/create-ticket";
 
   useLayoutEffect(() => {
     if (contentRef.current) {
@@ -41,8 +42,11 @@ export function AppShell({ children }: { children: ReactNode }) {
   }, [pathname]);
 
   return (
-    <div className={`app-shell${pathname === "/other" ? ` app-shell-other ${roboto.className}` : pathname === "/" ? ` app-shell-tickets ${roboto.className}` : isTicket ? ` ${roboto.className}` : ""}`}>
-      {!isTicket && <ScreenHeader><h1>{currentTab?.label ?? "Мои билеты"}</h1></ScreenHeader>}
+    <div className={`app-shell${pathname === "/other" ? ` app-shell-other ${roboto.className}` : pathname === "/" ? ` app-shell-tickets ${roboto.className}` : isCreateTicket ? ` app-shell-create ${roboto.className}` : isTicket ? ` ${roboto.className}` : ""}`}>
+      {!isTicket && <ScreenHeader>
+        {isCreateTicket && <Link href="/other" className="back-button"><svg viewBox="0 0 12 22" aria-hidden="true"><path d="M10 2 1 11l9 9" /></svg>Другое</Link>}
+        <h1>{isCreateTicket ? "Получить билет" : currentTab?.label ?? "Мои билеты"}</h1>
+      </ScreenHeader>}
       <div
         className={`page-content${isTicket ? " page-content-ticket" : ""}`}
         role={isTicket ? undefined : "main"}
@@ -55,7 +59,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       >{children}</div>
       {!isTicket && <nav className="tab-bar" aria-label="Основная навигация">
         {tabs.map((tab) => (
-          <Link key={tab.href} href={tab.href} className="tab" aria-current={pathname === tab.href ? "page" : undefined}>
+          <Link key={tab.href} href={tab.href} className="tab" aria-current={pathname === tab.href || (isCreateTicket && tab.href === "/other") ? "page" : undefined}>
             <span className={`tab-icon tab-icon-${tab.icon}`} style={{ maskImage: `url(/images/nav-${tab.icon}.png)` }} aria-hidden="true" />
             <span>{tab.label}</span>
           </Link>
