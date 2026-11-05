@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
+import { withSerwist } from "@serwist/turbopack";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  allowedDevOrigins: ["192.168.1.127"],
+  devIndicators: false,
   reactCompiler: true,
   turbopack: {
     rules: {
@@ -15,4 +15,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);

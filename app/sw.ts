@@ -1,0 +1,26 @@
+/// <reference lib="webworker" />
+
+import { defaultCache } from "@serwist/turbopack/worker";
+import { Serwist, type PrecacheEntry, type SerwistGlobalConfig } from "serwist";
+
+declare global {
+  interface WorkerGlobalScope extends SerwistGlobalConfig {
+    __SW_MANIFEST: (PrecacheEntry | string)[] | undefined;
+  }
+}
+
+declare const self: ServiceWorkerGlobalScope;
+
+const serwist = new Serwist({
+  precacheEntries: self.__SW_MANIFEST,
+  precacheOptions: {
+    // Next.js adds a version parameter to the favicon URL.
+    ignoreURLParametersMatching: [/^utm_/, /^fbclid$/, /^favicon\./],
+  },
+  skipWaiting: true,
+  clientsClaim: true,
+  navigationPreload: true,
+  runtimeCaching: defaultCache,
+});
+
+serwist.addEventListeners();
