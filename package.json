@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm run build:cloudflare",
+    "build:next": "next build",
     "start": "next start",
     "build:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare populateCache local",
-    "preview": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "preview": "pnpm run build && opennextjs-cloudflare preview",
+    "deploy": "pnpm run build && opennextjs-cloudflare deploy"
   },
   "dependencies": {
     "@serwist/turbopack": "^9.5.13",
