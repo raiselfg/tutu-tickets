@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare populateCache local",
+    "preview": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@serwist/turbopack": "^9.5.13",
@@ -17,14 +20,17 @@
     "serwist": "^9.5.13"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "1.20.16",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
     "esbuild": "^0.28.2",
+    "esbuild-wasm": "0.28.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.158.0"
   },
   "packageManager": "pnpm@12.11.2"
 }
