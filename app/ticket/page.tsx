@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { ScreenHeader } from "../components/app-shell";
 import { LoadingScreen } from "../components/loading-screen";
@@ -14,7 +13,6 @@ export default function TicketPage() {
 }
 
 function TicketContent() {
-  const router = useRouter();
   const number = useSearchParams().get("number") ?? "";
   const result = useTicket(number);
   const ticket = result?.ticket;
@@ -23,25 +21,25 @@ function TicketContent() {
 
   useEffect(() => {
     if (result && !result.error && (!ticket || (now > 0 && ticket.expiresAt <= now))) {
-      router.replace("/", { scroll: false });
+      window.location.replace("/");
     }
-  }, [result, ticket, now, router]);
+  }, [result, ticket, now]);
 
   return (
     <div
       className={`detail-screen${closing ? " detail-closing" : ""}`}
       onAnimationEnd={(event) => {
         if (closing && event.target === event.currentTarget) {
-          router.replace("/", { scroll: false });
+          window.location.replace("/");
         }
       }}
       onKeyDown={(event) => { if (event.key === "Escape") setClosing(true); }}
     >
       <ScreenHeader>
-        <Link href="/" prefetch={false} className="back-button" onNavigate={(event) => { event.preventDefault(); setClosing(true); }}>
+        <a href="/" className="back-button" onClick={(event) => { event.preventDefault(); setClosing(true); }}>
           <svg viewBox="0 0 12 22" aria-hidden="true"><path d="M10 2 1 11l9 9" /></svg>
           Мои билеты
-        </Link>
+        </a>
         <h1>Билет</h1>
       </ScreenHeader>
       <main className="detail-content">

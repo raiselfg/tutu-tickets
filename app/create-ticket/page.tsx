@@ -1,12 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useRef, useState, type FormEvent } from "react";
 import { createTicket } from "../lib/ticket-db";
 import { isValidRoute, stations } from "../lib/stations";
 
 export default function CreateTicket() {
-  const router = useRouter();
   const [departure, setDeparture] = useState("");
   const [arrival, setArrival] = useState("");
   const [saving, setSaving] = useState(false);
@@ -23,7 +21,7 @@ export default function CreateTicket() {
     setError("");
     try {
       const ticket = await createTicket(departure, arrival);
-      router.replace(`/ticket?number=${ticket.number}`);
+      window.location.replace(`/ticket?number=${ticket.number}`);
     } catch {
       setError("Не удалось сохранить билет. Попробуйте ещё раз.");
       submitting.current = false;

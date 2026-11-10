@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { getTicketRoute } from "../lib/tickets";
 import { useTickets, useTicketTime } from "../lib/use-tickets";
 import { Promotion } from "./promotion";
@@ -35,9 +34,9 @@ export function TicketList() {
         {result?.error && <p className="ticket-list-state" role="alert">{result.error}</p>}
         {result && !result.error && activeTickets.length === 0 && <p className="ticket-list-state">Нет активированных билетов</p>}
         {activeTickets.map((ticket) => (
-          <Link key={ticket.number} href={`/ticket?number=${ticket.number}`} scroll={false} className="ticket-open" aria-label={`Открыть билет ${getTicketRoute(ticket)}`}>
+          <a key={ticket.number} href={`/ticket?number=${ticket.number}`} className="ticket-open" aria-label={`Открыть билет ${getTicketRoute(ticket)}`}>
             <TicketCard ticket={ticket} active />
-          </Link>
+          </a>
         ))}
       </section>
 

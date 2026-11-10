@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Promotion } from "../components/promotion";
 
 export default function Other() {
@@ -21,10 +20,10 @@ export default function Other() {
             <svg viewBox="0 0 12 22" aria-hidden="true"><path d="m2 2 9 9-9 9" /></svg>
           </div>
         ))}
-        <Link href="/create-ticket" className="other-menu-row">
+        <a href="/create-ticket" className="other-menu-row">
           <span>Помощь</span>
           <svg viewBox="0 0 12 22" aria-hidden="true"><path d="m2 2 9 9-9 9" /></svg>
-        </Link>
+        </a>
         <div className="other-contact">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="12" cy="12" r="12" fill="#45476b" />

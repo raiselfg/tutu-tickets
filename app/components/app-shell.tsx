@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import localFont from "next/font/local";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useRef, type ReactNode } from "react";
@@ -44,7 +43,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className={`app-shell${pathname === "/other" ? ` app-shell-other ${roboto.className}` : pathname === "/" ? ` app-shell-tickets ${roboto.className}` : isCreateTicket ? ` app-shell-create ${roboto.className}` : isTicket ? ` ${roboto.className}` : ""}`}>
       {!isTicket && <ScreenHeader>
-        {isCreateTicket && <Link href="/other" className="back-button"><svg viewBox="0 0 12 22" aria-hidden="true"><path d="M10 2 1 11l9 9" /></svg>Другое</Link>}
+        {isCreateTicket && <a href="/other" className="back-button"><svg viewBox="0 0 12 22" aria-hidden="true"><path d="M10 2 1 11l9 9" /></svg>Другое</a>}
         <h1>{isCreateTicket ? "Получить билет" : currentTab?.label ?? "Мои билеты"}</h1>
       </ScreenHeader>}
       <div
@@ -59,10 +58,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       >{children}</div>
       {!isTicket && <nav className="tab-bar" aria-label="Основная навигация">
         {tabs.map((tab) => (
-          <Link key={tab.href} href={tab.href} className="tab" aria-current={pathname === tab.href || (isCreateTicket && tab.href === "/other") ? "page" : undefined}>
+          <a key={tab.href} href={tab.href} className="tab" aria-current={pathname === tab.href || (isCreateTicket && tab.href === "/other") ? "page" : undefined}>
             <span className={`tab-icon tab-icon-${tab.icon}`} style={{ maskImage: `url(/images/nav-${tab.icon}.png)` }} aria-hidden="true" />
             <span>{tab.label}</span>
-          </Link>
+          </a>
         ))}
       </nav>}
     </div>
