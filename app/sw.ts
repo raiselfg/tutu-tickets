@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 
 import { defaultCache } from "@serwist/turbopack/worker";
-import { Serwist, type PrecacheEntry, type SerwistGlobalConfig } from "serwist";
+import { disableNavigationPreload, Serwist, type PrecacheEntry, type SerwistGlobalConfig } from "serwist";
 
 declare global {
   interface WorkerGlobalScope extends SerwistGlobalConfig {
@@ -20,8 +20,8 @@ const serwist = new Serwist({
   },
   skipWaiting: true,
   clientsClaim: true,
-  navigationPreload: true,
   runtimeCaching: defaultCache,
 });
 
+disableNavigationPreload();
 serwist.addEventListeners();
