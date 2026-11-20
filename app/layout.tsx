@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   title: "Мои билеты",
   applicationName: "Мои билеты",
   description: "Мои билеты на электрички",
-  appleWebApp: {
-    capable: true,
-    title: "Мои билеты",
-    statusBarStyle: "black-translucent",
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-title": "Мои билеты",
   },
   icons: { icon: "/images/icon-192.png", apple: "/images/icon-180.png" },
   formatDetection: { telephone: false, date: false, address: false },

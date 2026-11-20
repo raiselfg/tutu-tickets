@@ -11,9 +11,10 @@
 
 * { box-sizing: border-box; }
 html, body { width: 100%; height: 100%; overflow: hidden; overscroll-behavior: none; }
+/* iOS can use the page background for the standalone status bar. */
+html, body { background-color: var(--surface); }
 body {
   margin: 0;
-  background: var(--background);
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   font-size: 13.5px;
@@ -46,6 +47,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--purple); outlin
   overflow-y: auto;
   overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
+  background: var(--background);
 }
 .page-content-ticket { margin-bottom: 0; }
 .tab-bar {
@@ -223,13 +225,13 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--purple); outlin
 .other-legal > p:first-child { letter-spacing: .2px; text-indent: .25px; }
 .other-version { position: relative; top: -1.2px; color: #9498b3; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; font-size: 14px; letter-spacing: 0; }
 
-.detail-screen { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; background: var(--background); animation: detail-enter 320ms cubic-bezier(.22,.7,.25,1) both; }
+.detail-screen { position: fixed; inset: 0; z-index: 10; display: flex; flex-direction: column; background: var(--surface); animation: detail-enter 320ms cubic-bezier(.22,.7,.25,1) both; }
 .detail-closing { animation: detail-leave 320ms cubic-bezier(.3,0,.7,1) both; pointer-events: none; }
 .detail-screen .navigation-bar { height: 38.5px; }
 .detail-screen .navigation-bar h1 { letter-spacing: .2px; transform: translateY(-1.75px); }
 .back-button { position: absolute; left: 13.25px; top: 0; height: 38.5px; display: flex; align-items: center; gap: 9.75px; font-size: 17px; font-weight: 400; letter-spacing: -.1px; transform: translateY(-1.75px); }
 .back-button svg { width: 11.75px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2.3; stroke-linecap: round; stroke-linejoin: round; transform: translateY(-.5px); }
-.detail-content { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: none; padding: 16px 0 calc(24px + env(safe-area-inset-bottom, 0px)); }
+.detail-content { flex: 1; min-height: 0; background: var(--background); overflow-y: auto; overscroll-behavior: none; padding: 16px 0 calc(24px + env(safe-area-inset-bottom, 0px)); }
 .ticket-detail-card { background: var(--surface); border-radius: 14px; padding: 15.25px 16px 22px; }
 .ticket-detail-card .ticket-route { letter-spacing: .17px; }
 .ticket-detail-card .ticket-description { margin-top: 9.5px; letter-spacing: 0; }
