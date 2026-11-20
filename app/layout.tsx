@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     title: "Мои билеты",
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
   },
   icons: { icon: "/images/icon-192.png", apple: "/images/icon-180.png" },
   formatDetection: { telephone: false, date: false, address: false },
